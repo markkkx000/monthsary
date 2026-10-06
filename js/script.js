@@ -8,12 +8,12 @@
 ════════════════════════════════════════════════════════════ */
 const CONFIG = {
   bloomStartDelay: 350,     // ms after the gate fades before blooming starts
-  bloomTotalMs: 2500,       // length of the bloom sequence (12 roses)
+  bloomTotalMs: 4800,       // length of the bloom sequence
   petals: 8,                // petals that drift once, after the bloom
   foldTarget: 0.50,         // closed fold height ≈ this × viewport height
   foldMin: 200, foldMax: 300,
-  unfoldStep: 800,          // ms between each fold opening
-  unfoldDur: 1620,           // ms per fold swing (matches CSS .hinge)
+  unfoldStep: 450,          // ms between each fold opening (cascading wave)
+  unfoldDur: 850,           // ms per fold swing (matches CSS .hinge)
 };
 
 const PETAL_COLORS = ['#E8B7C8', '#D99AAF', '#CDB5D8', '#EFD3DD'];

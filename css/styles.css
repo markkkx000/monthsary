@@ -384,7 +384,7 @@ body.bloom .stem-b {
 }
 
 body.bloom .bow-g {
-  animation: bowIn .9s var(--ease-soft) 1.2s forwards
+  animation: bowIn .9s var(--ease-soft) 4.1s forwards
 }
 
 body.bloom .leaf-in {
@@ -506,36 +506,52 @@ body.bloom .rose-spiral {
   }
 }
 
-/* gentle life after blooming — barely there */
-body.bloomed .sway {
-  animation: sway 9s ease-in-out infinite alternate;
+/* gentle life after blooming — seamless transition with 0deg initial state */
+.sway {
   transform-box: fill-box;
   transform-origin: 50% 88%;
 }
 
-@keyframes sway {
-  from {
-    transform: rotate(-.55deg)
-  }
+body.bloomed .sway {
+  animation: sway 12s ease-in-out infinite;
+}
 
-  to {
-    transform: rotate(.55deg)
+@keyframes sway {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(.55deg);
+  }
+  75% {
+    transform: rotate(-.55deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }
 
-body.bloomed .tulip-head {
-  animation: nod var(--nd, 6s) ease-in-out var(--ndel, 0s) infinite alternate;
+.tulip-head {
   transform-box: fill-box;
   transform-origin: 50% 100%;
 }
 
-@keyframes nod {
-  from {
-    transform: rotate(-1.4deg)
-  }
+body.bloomed .tulip-head {
+  animation: nod var(--nd, 6s) ease-in-out var(--ndel, 0s) infinite;
+}
 
-  to {
-    transform: rotate(1.8deg)
+@keyframes nod {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1.8deg);
+  }
+  75% {
+    transform: rotate(-1.4deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }
 
@@ -772,7 +788,7 @@ body.bloomed .greeting {
 .fold3d {
   position: relative;
   perspective: 1400px;
-  transition: height .62s var(--ease-soft);
+  transition: height .85s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .fold3d.no-anim,
@@ -785,7 +801,7 @@ body.bloomed .greeting {
   transform-style: preserve-3d;
   transform-origin: 50% 0;
   transform: rotateX(var(--closed, 180deg));
-  transition: transform .62s var(--ease-soft);
+  transition: transform .85s cubic-bezier(0.34, 1.15, 0.64, 1);
 }
 
 .letter.is-open .hinge {
@@ -804,6 +820,20 @@ body.bloomed .greeting {
   inset: 0;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+
+.face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(111, 88, 125, 0.15) 0%, transparent 35%, rgba(111, 88, 125, 0.12) 100%);
+  opacity: 1;
+  transition: opacity .85s var(--ease-soft);
+}
+
+.letter.is-open .face::after {
+  opacity: 0;
 }
 
 .face.front {
