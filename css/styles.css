@@ -1,0 +1,1129 @@
+/* ════════════════════════════════════════════════════════════
+   FOR BABI · styles
+   ─ Palette: edit the variables in :root
+   ─ Bloom timing: keyframes + the inline --d vars in index.html
+   ─ Letter fold: section 4 (hinges, faces, cover)
+════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg: #F8F3FA;
+  --lav-soft: #EDE3F1;
+  --mauve: #A98CB5;
+  --mauve-deep: #8C6F91;
+  --purple: #6F587D;
+  --blush: #E8B7C8;
+  --rose: #D99AAF;
+  --cream: #FFFDF8;
+  --ink: #403747;
+  --muted: #786B7D;
+  --sage: #87977D;
+  --line: rgba(169, 140, 181, .35);
+
+  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --sans: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  --ease-soft: cubic-bezier(.22, .7, .3, 1);
+}
+
+/* ── base ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html {
+  -webkit-text-size-adjust: 100%
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow-x: hidden;
+}
+
+body:not(.open) {
+  overflow: hidden
+}
+
+/* no scrolling while the gate is up */
+::selection {
+  background: var(--blush);
+  color: var(--ink)
+}
+
+:focus-visible {
+  outline: 2px solid rgba(169, 140, 181, .75);
+  outline-offset: 3px;
+  border-radius: 4px
+}
+
+main:focus {
+  outline: none
+}
+
+/* soft film grain over everything, very quiet */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── 1 · password gate ───────────────────────────────── */
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow: auto;
+  background: radial-gradient(120% 80% at 50% 16%, #F4ECF6 0%, var(--bg) 58%);
+  transition: opacity .9s ease, transform .9s ease, visibility 0s linear .9s;
+}
+
+.gate--leave {
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gate-inner {
+  width: 100%;
+  max-width: 350px;
+  text-align: center
+}
+
+.gate-heart {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 22px;
+  fill: var(--blush);
+  animation: heartbeat 3.4s ease-in-out infinite
+}
+
+@keyframes heartbeat {
+
+  0%,
+  100% {
+    transform: scale(1)
+  }
+
+  50% {
+    transform: scale(1.07)
+  }
+}
+
+.gate-kicker {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--mauve-deep);
+}
+
+.gate-title {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 31px;
+  line-height: 1.3;
+  margin-top: 14px;
+  color: var(--ink);
+}
+
+.gate-rule {
+  width: 44px;
+  height: 1px;
+  background: rgba(169, 140, 181, .5);
+  margin: 26px auto
+}
+
+.gate-q {
+  display: block;
+  font-size: 14.5px;
+  color: var(--muted);
+  margin-bottom: 14px
+}
+
+#answer {
+  width: 100%;
+  height: 52px;
+  padding: 0 18px;
+  border-radius: 12px;
+  border: 1px solid #E0D2E6;
+  background: var(--cream);
+  color: var(--ink);
+  font: 400 16px var(--sans);
+  text-align: center;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+#answer::placeholder {
+  color: #B4A6BA;
+  font-style: italic
+}
+
+#answer:focus {
+  outline: none;
+  border-color: var(--mauve);
+  box-shadow: 0 0 0 3px rgba(169, 140, 181, .18);
+}
+
+.gate-btn {
+  margin-top: 12px;
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: var(--mauve);
+  color: var(--cream);
+  font: 500 15px var(--sans);
+  letter-spacing: .06em;
+  transition: background .25s ease, transform .15s ease;
+}
+
+.gate-btn:hover {
+  background: var(--mauve-deep)
+}
+
+.gate-btn:active {
+  transform: scale(.985)
+}
+
+.gate-msg {
+  min-height: 26px;
+  margin-top: 14px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16.5px;
+  color: var(--mauve-deep);
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.gate-msg.show {
+  opacity: 1
+}
+
+.gate-form.shake .gate-field {
+  animation: shake .45s ease
+}
+
+@keyframes shake {
+  20% {
+    transform: translateX(-4px)
+  }
+
+  40% {
+    transform: translateX(3px)
+  }
+
+  60% {
+    transform: translateX(-2px)
+  }
+
+  80% {
+    transform: translateX(1px)
+  }
+}
+
+.gate-sprig {
+  position: absolute;
+  width: 60px;
+  opacity: .5
+}
+
+.gs-tl {
+  top: 18px;
+  left: 16px;
+  transform: rotate(-8deg)
+}
+
+.gs-br {
+  bottom: 18px;
+  right: 16px;
+  transform: rotate(172deg)
+}
+
+/* ── main reveal ──────────────────────────────────────── */
+.main {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease .15s, visibility 0s;
+}
+
+body.open .main {
+  opacity: 1;
+  visibility: visible
+}
+
+/* ── 2 · bouquet stage ────────────────────────────────── */
+.stage {
+  padding: clamp(18px, 4vh, 44px) 20px 0;
+  display: flex;
+  justify-content: center
+}
+
+.bouquet-frame {
+  position: relative;
+  width: min(88vw, 430px)
+}
+
+.bouquet-frame::before {
+  /* faint blush halo behind the flowers */
+  content: '';
+  position: absolute;
+  inset: -8% -14%;
+  z-index: 0;
+  opacity: 0;
+  background: radial-gradient(50% 46% at 50% 42%, rgba(232, 183, 200, .18), rgba(232, 183, 200, 0) 72%);
+  transition: opacity 2.4s ease .6s;
+}
+
+body.bloom .bouquet-frame::before {
+  opacity: 1
+}
+
+#bouquet {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  position: relative;
+  z-index: 1
+}
+
+.petals {
+  position: absolute;
+  inset: -24px 0 0 0;
+  pointer-events: none;
+  z-index: 3
+}
+
+/* ── bloom sequence ──────────────────────────────────────
+   stems → bundle → bow → leaves → tulips → roses (ring by
+   ring, back row to front) → baby's breath.
+   Per-flower delays come from the inline --d variables. */
+.ground,
+.bow-g {
+  opacity: 0
+}
+
+.stem,
+.stem-b {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1
+}
+
+.leaf-in,
+.tulip-in,
+.rose-in,
+.filler {
+  opacity: 0
+}
+
+.ring {
+  opacity: 0;
+  transform: scale(.25);
+  transform-box: fill-box;
+  transform-origin: 50% 50%
+}
+
+.leaf-in {
+  transform: scale(.75);
+  transform-box: fill-box;
+  transform-origin: 50% 100%
+}
+
+.tulip-in {
+  transform: translateY(15px) scale(.7);
+  transform-box: fill-box;
+  transform-origin: 50% 100%
+}
+
+.rose-in {
+  opacity: 0;
+  transform: scale(.86);
+  transform-box: fill-box;
+  transform-origin: 50% 50%
+}
+
+.bow-g {
+  transform: scale(.85);
+  transform-box: fill-box;
+  transform-origin: 50% 30%
+}
+
+.rose-spiral {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0
+}
+
+body.bloom .ground {
+  animation: fadeIn 1s ease .1s forwards
+}
+
+body.bloom .stem {
+  animation: draw .9s cubic-bezier(.45, .05, .3, .95) var(--d, 0s) forwards
+}
+
+body.bloom .stem-b {
+  animation: draw .6s cubic-bezier(.45, .05, .3, .95) var(--d, 0s) forwards
+}
+
+body.bloom .bow-g {
+  animation: bowIn .9s var(--ease-soft) 1.2s forwards
+}
+
+body.bloom .leaf-in {
+  animation: softIn 1.1s var(--ease-soft) var(--d, 0s) forwards
+}
+
+body.bloom .tulip-in {
+  animation: riseIn 1s var(--ease-soft) var(--d, 0s) forwards
+}
+
+body.bloom .filler {
+  animation: fadeIn 1s ease var(--d, 0s) forwards
+}
+
+/* roses: the whole head fades in, then petals open ring by ring */
+body.bloom .rose-in {
+  animation: roseIn .7s ease var(--d, 0s) forwards
+}
+
+body.bloom .ring-1 {
+  animation: ringIn .8s var(--ease-soft) calc(var(--d, 0s) + .08s) forwards
+}
+
+body.bloom .ring-2 {
+  animation: ringIn .8s var(--ease-soft) calc(var(--d, 0s) + .22s) forwards
+}
+
+body.bloom .ring-3 {
+  animation: ringIn .8s var(--ease-soft) calc(var(--d, 0s) + .36s) forwards
+}
+
+body.bloom .ring-4 {
+  animation: ringIn .8s var(--ease-soft) calc(var(--d, 0s) + .50s) forwards
+}
+
+body.bloom .rose-spiral {
+  animation: spiral .9s ease calc(var(--d, 0s) + .64s) forwards
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0
+  }
+}
+
+@keyframes bowIn {
+  to {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+
+@keyframes softIn {
+  0% {
+    opacity: 0;
+    transform: scale(.75)
+  }
+
+  60% {
+    opacity: 1
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+
+@keyframes riseIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(.7)
+  }
+
+  100% {
+    opacity: 1;
+    transform: none
+  }
+}
+
+@keyframes roseIn {
+  to {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+
+@keyframes ringIn {
+  0% {
+    opacity: 0;
+    transform: scale(.25)
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+
+@keyframes spiral {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0
+  }
+
+  15% {
+    opacity: .8
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: .8
+  }
+}
+
+/* gentle life after blooming — barely there */
+body.bloomed .sway {
+  animation: sway 9s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: 50% 88%;
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-.55deg)
+  }
+
+  to {
+    transform: rotate(.55deg)
+  }
+}
+
+body.bloomed .tulip-head {
+  animation: nod var(--nd, 6s) ease-in-out var(--ndel, 0s) infinite alternate;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+@keyframes nod {
+  from {
+    transform: rotate(-1.4deg)
+  }
+
+  to {
+    transform: rotate(1.8deg)
+  }
+}
+
+/* drifting petals (spawned once, by JS, after the bloom) */
+.petal {
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: petalFall var(--dur, 8s) cubic-bezier(.3, .4, .6, 1) forwards;
+}
+
+.petal svg {
+  width: var(--sz, 13px);
+  display: block
+}
+
+@keyframes petalFall {
+  0% {
+    transform: translate3d(0, -16px, 0) rotate(0);
+    opacity: 0
+  }
+
+  10% {
+    opacity: .85
+  }
+
+  78% {
+    opacity: .65
+  }
+
+  100% {
+    transform: translate3d(var(--sway, 30px), var(--fall, 320px), 0) rotate(var(--rot, 220deg));
+    opacity: 0
+  }
+}
+
+/* ── 3 · greeting ─────────────────────────────────────── */
+.greeting {
+  text-align: center;
+  padding: 8px 24px 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 1.2s ease .1s, transform 1.2s var(--ease-soft) .1s;
+}
+
+body.bloomed .greeting {
+  opacity: 1;
+  transform: none
+}
+
+.greeting h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(27px, 6.6vw, 38px);
+  line-height: 1.25;
+  color: var(--purple);
+}
+
+.greeting h1 .h {
+  color: var(--rose)
+}
+
+.greeting-sub {
+  margin-top: 10px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17.5px;
+  color: var(--muted);
+}
+
+.divider {
+  display: flex;
+  justify-content: center;
+  margin: 32px 0 0;
+  opacity: .85
+}
+
+/* ── 4 · the letter — a real 3D folded paper ──────────── */
+.letter-sec {
+  padding: 30px 18px 8px;
+  display: flex;
+  justify-content: center
+}
+
+.letter-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 640px
+}
+
+.sheet {
+  /* the second sheet peeking out behind */
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: #EFE6F1;
+  border: 1px solid rgba(169, 140, 181, .25);
+  transform: rotate(1.3deg) translateY(6px);
+}
+
+.letter {
+  position: relative;
+  z-index: 1
+}
+
+/* shared stationery paper */
+.paper {
+  position: relative;
+  border-radius: 5px;
+  background: var(--cream);
+  border: 1px solid rgba(169, 140, 181, .4);
+  box-shadow: 0 2px 3px rgba(111, 88, 125, .05), 0 24px 55px -22px rgba(111, 88, 125, .35);
+}
+
+.paper::before {
+  /* paper texture */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  mix-blend-mode: multiply;
+  opacity: .16;
+  pointer-events: none;
+  background-image:
+    radial-gradient(130% 70% at 50% 0%, rgba(255, 255, 255, .9) 0%, rgba(255, 255, 255, 0) 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+
+.paper>* {
+  position: relative;
+  z-index: 1
+}
+
+.paper>.corner {
+  position: absolute
+}
+
+/* master copy: laid out for measuring, invisible.
+   (noscript makes it visible as the plain letter) */
+.letter-master {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.paper-edge {
+  /* outer border, drawn in letter coordinates so it
+                stays continuous across every fold */
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(169, 140, 181, .4);
+  border-radius: 5px;
+}
+
+.paper-frame {
+  /* inner hairline */
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(169, 140, 181, .22);
+  border-radius: 3px;
+}
+
+.js-crease {
+  /* fold creases, injected by JS at panel boundaries */
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(169, 140, 181, .26) 8%, rgba(169, 140, 181, .26) 92%, transparent);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .6);
+}
+
+.corner {
+  width: 58px;
+  opacity: .7;
+  z-index: 0
+}
+
+.corner-tr {
+  top: 18px;
+  right: 18px
+}
+
+.corner-bl {
+  bottom: 18px;
+  left: 18px;
+  transform: rotate(180deg)
+}
+
+.letter-pad {
+  padding: 52px 26px 46px
+}
+
+.letter-for {
+  text-align: center;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin-bottom: 30px;
+}
+
+.letter-body {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.88;
+  color: var(--ink);
+}
+
+.salute {
+  font-size: 21px;
+  font-style: italic;
+  margin-bottom: 20px
+}
+
+.letter-body p {
+  margin-bottom: 1.15em
+}
+
+.signoff {
+  margin-top: 30px;
+  margin-bottom: 0;
+  text-align: right;
+  font-style: italic
+}
+
+/* — the 3D fold stack — */
+.fold3d {
+  position: relative;
+  perspective: 1400px;
+  transition: height .62s var(--ease-soft);
+}
+
+.fold3d.no-anim,
+.fold3d.no-anim * {
+  transition: none !important
+}
+
+.hinge {
+  display: block;
+  transform-style: preserve-3d;
+  transform-origin: 50% 0;
+  transform: rotateX(var(--closed, 180deg));
+  transition: transform .62s var(--ease-soft);
+}
+
+.letter.is-open .hinge {
+  transform: rotateX(0deg)
+}
+
+.panel {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--i, 0) * -0.35px));
+  /* keeps the closed stack from z-fighting */
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.face.front {
+  overflow: hidden;
+  /* the slice window */
+  background: var(--cream);
+  background-image:
+    radial-gradient(130% 70% at 50% 0%, rgba(255, 255, 255, .9) 0%, rgba(255, 255, 255, 0) 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+
+.panel.p-first .face.front {
+  border-radius: 5px 5px 0 0
+}
+
+.panel.p-last .face.front {
+  border-radius: 0 0 5px 5px
+}
+
+.slice {
+  position: absolute;
+  left: 0;
+  right: 0
+}
+
+/* top/height set by JS */
+.face.back {
+  transform: rotateX(180deg);
+  background: linear-gradient(180deg, #EDE2EE 0%, #FBF6F3 16%, #FFFDF8 55%, #F3EAF1 100%);
+}
+
+.panel.p-first .face.back {
+  border-radius: 0 0 5px 5px
+}
+
+.panel.p-last .face.back {
+  border-radius: 5px 5px 0 0
+}
+
+/* — closed cover: the sealed face she taps — */
+.fold-cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 6;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 14px;
+  padding: 28px 22px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transform-origin: 50% 0;
+  transition: transform .6s var(--ease-soft), opacity .45s ease .25s;
+}
+
+.letter.is-open .fold-cover {
+  transform: perspective(900px) rotateX(-55deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cover-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--mauve-deep);
+}
+
+.cover-seal {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 32% 30%, #B99BC4, var(--mauve-deep) 72%);
+  box-shadow: inset 0 0 0 3px rgba(255, 253, 248, .16),
+    inset 0 -4px 8px rgba(64, 55, 71, .25),
+    0 8px 16px -8px rgba(111, 88, 125, .6);
+  transform: rotate(-7deg);
+  animation: sealPulse 3.2s ease-in-out infinite;
+  transition: transform .5s var(--ease-soft), opacity .4s ease .1s;
+}
+
+.cover-seal svg {
+  fill: #FFF6F0;
+  opacity: .92
+}
+
+.letter.is-open .cover-seal {
+  transform: rotate(-16deg) scale(1.35);
+  opacity: 0;
+  animation: none
+}
+
+@keyframes sealPulse {
+
+  0%,
+  100% {
+    transform: rotate(-7deg) scale(1)
+  }
+
+  50% {
+    transform: rotate(-7deg) scale(1.06)
+  }
+}
+
+.cover-hint {
+  font: 500 10.5px var(--sans);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  animation: hintPulse 2.8s ease-in-out infinite;
+}
+
+.letter.is-open .cover-hint {
+  opacity: 0;
+  animation: none
+}
+
+@keyframes hintPulse {
+
+  0%,
+  100% {
+    opacity: .55
+  }
+
+  50% {
+    opacity: .95
+  }
+}
+
+/* screen-reader copy */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#srLetter:focus {
+  outline: none
+}
+
+/* ── 5 · closing ──────────────────────────────────────── */
+.closing {
+  text-align: center;
+  padding: 46px 24px 74px
+}
+
+.closing-heart {
+  width: 15px;
+  height: 15px;
+  margin: 0 auto 16px;
+  fill: var(--rose);
+  opacity: .9
+}
+
+.closing-line {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 21px;
+  color: var(--purple)
+}
+
+.closing-sub {
+  margin-top: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── scroll reveal ────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1s ease, transform 1s var(--ease-soft);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none
+}
+
+/* ── larger screens ───────────────────────────────────── */
+@media (min-width:600px) {
+  .letter-pad {
+    padding: 56px 48px 52px
+  }
+
+  .letter-body {
+    font-size: 19.5px
+  }
+
+  .corner {
+    width: 66px
+  }
+}
+
+@media (min-width:900px) {
+  .stage {
+    padding-top: 56px
+  }
+
+  .bouquet-frame {
+    width: min(52vw, 480px)
+  }
+
+  .greeting {
+    padding-top: 12px
+  }
+
+  .divider {
+    margin-top: 38px
+  }
+
+  .letter-sec {
+    padding-top: 44px
+  }
+
+  .closing {
+    padding: 56px 24px 96px
+  }
+
+  .gate-title {
+    font-size: 34px
+  }
+
+  .gate-sprig {
+    width: 76px
+  }
+}
+
+/* ── reduced motion: everything calm & instant ────────── */
+@media (prefers-reduced-motion: reduce) {
+
+  .gate-heart,
+  .closing-heart,
+  .sway,
+  .tulip-head,
+  .cover-seal,
+  .cover-hint {
+    animation: none !important
+  }
+
+  .petals {
+    display: none !important
+  }
+
+  .gate {
+    transition: opacity .25s ease, visibility 0s
+  }
+
+  .gate--leave {
+    transition-delay: 0s
+  }
+
+  .main {
+    transition-duration: .2s
+  }
+
+  .ground,
+  .bow-g,
+  .leaf-in,
+  .tulip-in,
+  .rose-in,
+  .filler,
+  .ring {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .stem,
+  .stem-b {
+    stroke-dashoffset: 0 !important;
+    animation: none !important
+  }
+
+  .rose-spiral {
+    stroke-dashoffset: 0 !important;
+    opacity: .8 !important;
+    animation: none !important
+  }
+
+  .bouquet-frame::before {
+    opacity: 1 !important
+  }
+
+  .greeting,
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important
+  }
+
+  .gate-form.shake .gate-field {
+    animation: none
+  }
+
+  /* letter: opens instantly, no swinging */
+  .hinge,
+  .fold3d,
+  .fold-cover,
+  .cover-seal,
+  .cover-hint {
+    transition-duration: .01s !important;
+    transition-delay: 0s !important;
+  }
+
+  .letter.is-open .fold-cover {
+    transform: none
+  }
+}

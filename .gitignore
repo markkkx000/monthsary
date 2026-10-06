@@ -1,0 +1,7 @@
+# Plaintext source letter (contains secret letter content)
+letter.html
+
+# Local node/temp files
+node_modules/
+*.log
+.DS_Store

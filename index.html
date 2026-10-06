@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F8F3FA">
+  <meta name="description" content="A little something, for you.">
+  <title>For Babi ♡</title>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 20.8 C 6 16.2 2.8 12.7 2.8 9.1 C 2.8 6.5 4.8 4.5 7.3 4.5 C 9.2 4.5 10.9 5.6 12 7.4 C 13.1 5.6 14.8 4.5 16.7 4.5 C 19.2 4.5 21.2 6.5 21.2 9.1 C 21.2 12.7 18 16.2 12 20.8 Z' fill='%23A98CB5'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════
+       Shared decorative icons (hearts, sprigs). Nothing to edit.
+  ══════════════════════════════════════════════════ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <path id="ico-heart"
+        d="M12 20.8 C 6 16.2 2.8 12.7 2.8 9.1 C 2.8 6.5 4.8 4.5 7.3 4.5 C 9.2 4.5 10.9 5.6 12 7.4 C 13.1 5.6 14.8 4.5 16.7 4.5 C 19.2 4.5 21.2 6.5 21.2 9.1 C 21.2 12.7 18 16.2 12 20.8 Z" />
+      <g id="sprigCorner">
+        <path d="M14 78 C 20 58 20 34 10 8" fill="none" stroke="#B9A2C4" stroke-width="1.6" stroke-linecap="round" />
+        <path d="M17 62 C 26 60 32 53 33 45 C 25 47 19 53 17 62 Z" fill="#CDBBD8" />
+        <path d="M18 50 C 9 48 3 41 2 33 C 10 35 16 41 18 50 Z" fill="#CDBBD8" />
+        <path d="M16 38 C 24 36 29 30 30 23 C 23 25 18 30 16 38 Z" fill="#D6C7DF" />
+        <path d="M13 26 C 6 24 2 18 1 12 C 7 13 11 18 13 26 Z" fill="#D6C7DF" />
+        <circle cx="10" cy="8" r="2.4" fill="#A98CB5" />
+        <circle cx="15" cy="3" r="1.8" fill="#B9A2C4" />
+        <circle cx="5.5" cy="12" r="1.6" fill="#B9A2C4" />
+      </g>
+      <g id="minisprig">
+        <path d="M12 42 C 13 30 13 16 12 4" fill="none" stroke="#A98CB5" stroke-width="1.4" stroke-linecap="round" />
+        <path d="M12 30 C 6 28 3 23 3 17 C 8 19 11 24 12 30 Z" fill="#C4B2CF" />
+        <path d="M12 21 C 18 19 21 14 21 8 C 16 10 13 15 12 21 Z" fill="#D6C7DF" />
+        <circle cx="12" cy="3.4" r="2.1" fill="#A98CB5" />
+      </g>
+    </defs>
+  </svg>
+
+
+  <!-- ══════════════════════════════════════════════════
+       1 · PASSWORD GATE
+  ══════════════════════════════════════════════════ -->
+  <section class="gate" id="gate" aria-label="A little gift — answer to open">
+    <svg class="gate-sprig gs-tl" viewBox="0 0 80 82" aria-hidden="true">
+      <use href="#sprigCorner" />
+    </svg>
+    <svg class="gate-sprig gs-br" viewBox="0 0 80 82" aria-hidden="true">
+      <use href="#sprigCorner" />
+    </svg>
+
+    <div class="gate-inner">
+      <svg class="gate-heart" viewBox="0 0 24 24" aria-hidden="true">
+        <use href="#ico-heart" />
+      </svg>
+
+      <p class="gate-kicker">For my babi</p>
+      <p class="gate-title">A little something<br>for you.</p>
+
+      <div class="gate-rule" aria-hidden="true"></div>
+
+      <form id="gate-form" class="gate-form" novalidate>
+        <label class="gate-q" for="answer">What's my favorite flavor?</label>
+        <div class="gate-field">
+          <input id="answer" name="answer" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"
+            placeholder="your answer…" autofocus>
+        </div>
+        <button class="gate-btn" type="submit">enter ♡</button>
+        <p class="gate-msg" id="gate-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════
+       THE GIFT
+  ══════════════════════════════════════════════════ -->
+  <main class="main" id="main" aria-hidden="true" tabindex="-1">
+
+    <!-- ── 2 · THE BOUQUET ──────────────────────────────
+         12 roses (6 pink, 6 white) in a mixed, natural scatter.
+         Move any flower by editing its transform="translate(x y)".
+         Pink roses use fills gP1–gP3, white roses gW1–gW3. -->
+    <section class="stage" aria-label="A bouquet of flowers">
+      <div class="bouquet-frame">
+        <svg id="bouquet" viewBox="0 0 420 520" role="img"
+          aria-label="A hand-drawn bouquet of white and pink roses with lavender tulips, tied with a soft bow">
+          <defs>
+            <!-- one ruffled rose petal, reused by every ring of every rose -->
+            <path id="petalShape" d="M 0 5
+              C -9 4 -17 -1 -18.5 -9
+              C -19.5 -15 -17 -21 -12.5 -23.5
+              C -14.5 -27 -11 -30.5 -7.5 -28.5
+              C -6 -32 -0.5 -32.5 1.5 -29
+              C 4.5 -31.5 9 -30 9.5 -26.5
+              C 14 -25 17.5 -20 17.5 -14
+              C 17 -5 9 3.5 0 5 Z" />
+
+            <!-- pink rose petal shades: outer light → inner deep -->
+            <linearGradient id="gP1" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#EFAFC4" />
+              <stop offset="100%" stop-color="#FBDCE5" />
+            </linearGradient>
+            <linearGradient id="gP2" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#E59CB5" />
+              <stop offset="100%" stop-color="#F6C6D5" />
+            </linearGradient>
+            <linearGradient id="gP3" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#D487A2" />
+              <stop offset="100%" stop-color="#EBAAC0" />
+            </linearGradient>
+            <!-- white rose petal shades -->
+            <linearGradient id="gW1" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#EBDCE7" />
+              <stop offset="100%" stop-color="#FFFFFF" />
+            </linearGradient>
+            <linearGradient id="gW2" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#E2CCDD" />
+              <stop offset="100%" stop-color="#FDF8F6" />
+            </linearGradient>
+            <linearGradient id="gW3" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#D6BACD" />
+              <stop offset="100%" stop-color="#F7EDEE" />
+            </linearGradient>
+            <!-- tulips -->
+            <linearGradient id="gTL" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#D2BCDD" />
+              <stop offset="100%" stop-color="#8F7098" />
+            </linearGradient>
+            <linearGradient id="gTLd" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#B89FC6" />
+              <stop offset="100%" stop-color="#7C6288" />
+            </linearGradient>
+            <linearGradient id="gTP" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#F4CBD9" />
+              <stop offset="100%" stop-color="#D18EA7" />
+            </linearGradient>
+            <linearGradient id="gTPd" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#E5B0C4" />
+              <stop offset="100%" stop-color="#BD7D96" />
+            </linearGradient>
+            <linearGradient id="gLeaf" x1="0" y1="1" x2="0.55" y2="0">
+              <stop offset="0%" stop-color="#96A58B" />
+              <stop offset="100%" stop-color="#6F7F66" />
+            </linearGradient>
+            <!-- bow satin -->
+            <linearGradient id="gBow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#EADDF1" />
+              <stop offset="100%" stop-color="#B493C4" />
+            </linearGradient>
+            <linearGradient id="gBow2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#DCC9E5" />
+              <stop offset="100%" stop-color="#A98CB5" />
+            </linearGradient>
+
+            <!-- lavender tulip head -->
+            <g id="tulipL">
+              <path d="M -10 -1 C -14 -12 -13 -26 -5 -34 C -8 -22 -8.5 -10 -6.5 -1.5 Z" fill="url(#gTLd)" />
+              <path d="M 10 -1 C 14 -12 13 -26 5 -34 C 8 -22 8.5 -10 6.5 -1.5 Z" fill="url(#gTLd)" />
+              <path
+                d="M 0 2 C -7.5 .5 -11 -10 -9.5 -22 C -8.5 -30 -3.5 -35.5 0 -36.5 C 3.5 -35.5 8.5 -30 9.5 -22 C 11 -10 7.5 .5 0 2 Z"
+                fill="url(#gTL)" />
+              <path d="M 0 -34 C 1.1 -25 1.1 -12 0 -1.5" stroke="rgba(111,88,125,.28)" stroke-width="1" fill="none" />
+            </g>
+            <!-- pink tulip head -->
+            <g id="tulipP">
+              <path d="M -10 -1 C -14 -12 -13 -26 -5 -34 C -8 -22 -8.5 -10 -6.5 -1.5 Z" fill="url(#gTPd)" />
+              <path d="M 10 -1 C 14 -12 13 -26 5 -34 C 8 -22 8.5 -10 6.5 -1.5 Z" fill="url(#gTPd)" />
+              <path
+                d="M 0 2 C -7.5 .5 -11 -10 -9.5 -22 C -8.5 -30 -3.5 -35.5 0 -36.5 C 3.5 -35.5 8.5 -30 9.5 -22 C 11 -10 7.5 .5 0 2 Z"
+                fill="url(#gTP)" />
+              <path d="M 0 -34 C 1.1 -25 1.1 -12 0 -1.5" stroke="rgba(160,95,120,.25)" stroke-width="1" fill="none" />
+            </g>
+            <!-- leaf -->
+            <g id="leafG">
+              <path d="M0 0 C -14 -13 -25 -40 -20 -67 C -5 -49 2 -22 0 0 Z" fill="url(#gLeaf)" />
+              <path d="M-2 -4 C -8 -20 -13 -40 -17 -58" stroke="#68785F" stroke-width="1" fill="none" opacity=".5" />
+            </g>
+            <!-- baby's breath -->
+            <g id="fillerG">
+              <path d="M0 0 C 1 -9 2 -18 0 -27" stroke="#8D9C82" stroke-width="1.3" fill="none"
+                stroke-linecap="round" />
+              <path d="M0 -12 C -4 -16 -7 -20 -8 -25" stroke="#8D9C82" stroke-width="1.1" fill="none"
+                stroke-linecap="round" />
+              <path d="M0 -14 C 4 -18 7 -21 8 -26" stroke="#8D9C82" stroke-width="1.1" fill="none"
+                stroke-linecap="round" />
+              <g fill="#FFFDF8" stroke="rgba(169,140,181,.42)" stroke-width=".7">
+                <circle cx="0" cy="-28" r="2.3" />
+                <circle cx="-8.6" cy="-26" r="2" />
+                <circle cx="8.6" cy="-27" r="2" />
+                <circle cx="-3.4" cy="-20.5" r="1.6" />
+                <circle cx="3.8" cy="-22" r="1.6" />
+              </g>
+            </g>
+          </defs>
+
+          <ellipse class="ground" cx="212" cy="486" rx="55" ry="7" fill="#6F587D" opacity=".10" />
+
+          <g class="sway">
+
+            <!-- stems above the tie (mostly hidden behind the flowers) -->
+            <g fill="none" stroke="#82937A" stroke-width="3" stroke-linecap="round">
+              <path class="stem" style="--d:.45s" pathLength="1" d="M150 268 C 168 300 190 328 206 348" />
+              <path class="stem" style="--d:.52s" pathLength="1" d="M182 272 C 192 300 202 326 208 350" />
+              <path class="stem" style="--d:.59s" pathLength="1" d="M212 274 C 212 300 212 326 212 352" />
+              <path class="stem" style="--d:.66s" pathLength="1" d="M244 272 C 234 300 222 326 216 350" />
+              <path class="stem" style="--d:.73s" pathLength="1" d="M276 268 C 258 300 232 328 218 348" />
+              <path class="stem" style="--d:.80s" pathLength="1" d="M300 258 C 272 292 240 322 220 346" />
+            </g>
+
+            <!-- gathered stem bundle below the bow -->
+            <g fill="none" stroke="#7E8E74" stroke-linecap="butt">
+              <path class="stem-b" style="--d:1s" pathLength="1" stroke-width="5.5" d="M205 356 L 200 466" />
+              <path class="stem-b" style="--d:1.06s" pathLength="1" stroke-width="5.5" d="M211 356 L 210 470" />
+              <path class="stem-b" style="--d:1.12s" pathLength="1" stroke-width="5.5" d="M217 356 L 219 468" />
+              <path class="stem-b" style="--d:1.18s" pathLength="1" stroke-width="5.5" d="M223 356 L 228 462" />
+              <path class="stem-b" style="--d:1.1s" pathLength="1" stroke-width="1.6" stroke="#9DAC92"
+                d="M208 360 L 205 464" />
+              <path class="stem-b" style="--d:1.16s" pathLength="1" stroke-width="1.6" stroke="#9DAC92"
+                d="M220 360 L 223 460" />
+            </g>
+
+            <!-- leaves behind the dome -->
+            <g class="leaf" transform="translate(84 212) rotate(-64) scale(1.15)" style="--d:1.3s">
+              <g class="leaf-in">
+                <use href="#leafG" />
+              </g>
+            </g>
+            <g class="leaf" transform="translate(338 208) scale(-1.15 1.15) rotate(-62)" style="--d:1.45s">
+              <g class="leaf-in">
+                <use href="#leafG" />
+              </g>
+            </g>
+            <g class="leaf" transform="translate(124 272) rotate(-32)" style="--d:1.6s">
+              <g class="leaf-in">
+                <use href="#leafG" />
+              </g>
+            </g>
+            <g class="leaf" transform="translate(298 274) scale(-1 1) rotate(-30)" style="--d:1.75s">
+              <g class="leaf-in">
+                <use href="#leafG" />
+              </g>
+            </g>
+            <g class="leaf" transform="translate(212 282) rotate(6) scale(.85)" style="--d:1.9s">
+              <g class="leaf-in">
+                <use href="#leafG" />
+              </g>
+            </g>
+
+            <!-- baby's breath around the edges -->
+            <g class="filler" transform="translate(72 150) rotate(-20)" style="--d:3.8s">
+              <use href="#fillerG" />
+            </g>
+            <g class="filler" transform="translate(352 152) rotate(22)" style="--d:3.92s">
+              <use href="#fillerG" />
+            </g>
+            <g class="filler" transform="translate(60 238) rotate(-32)" style="--d:4.04s">
+              <use href="#fillerG" />
+            </g>
+            <g class="filler" transform="translate(362 234) rotate(32)" style="--d:4.16s">
+              <use href="#fillerG" />
+            </g>
+            <g class="filler" transform="translate(208 64) scale(.8)" style="--d:4.28s">
+              <use href="#fillerG" />
+            </g>
+
+            <!-- tulips peeking out between the roses -->
+            <g transform="translate(96 118) rotate(-16)" style="--d:1.85s; --nd:6.6s; --ndel:1.2s">
+              <g class="tulip-in">
+                <g class="tulip-head">
+                  <use href="#tulipP" />
+                </g>
+              </g>
+            </g>
+            <g transform="translate(178 90) rotate(-10) scale(1.05)" style="--d:2s; --nd:6.2s; --ndel:0s">
+              <g class="tulip-in">
+                <g class="tulip-head">
+                  <use href="#tulipL" />
+                </g>
+              </g>
+            </g>
+            <g transform="translate(240 88) rotate(8) scale(1.1)" style="--d:2.15s; --nd:7.1s; --ndel:.8s">
+              <g class="tulip-in">
+                <g class="tulip-head">
+                  <use href="#tulipL" />
+                </g>
+              </g>
+            </g>
+            <g transform="translate(322 120) rotate(16) scale(.9)" style="--d:2.3s; --nd:5.8s; --ndel:.4s">
+              <g class="tulip-in">
+                <g class="tulip-head">
+                  <use href="#tulipL" />
+                </g>
+              </g>
+            </g>
+
+            <!-- ── ROSES · 12 heads, pink & white intermixed ──
+                 each = 4 ruffled petal rings + a tiny spiral heart -->
+            <!-- white, far left edge -->
+            <g transform="translate(80 148) rotate(-8) scale(.78)" style="--d:2.3s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gW1)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gW2)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#DCC5D6" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#C9A6BF" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- white, far right edge -->
+            <g transform="translate(328 148) rotate(10) scale(.80)" style="--d:2.4s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gW1)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gW2)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#DCC5D6" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#C9A6BF" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- pink, top left -->
+            <g transform="translate(148 130) rotate(-12) scale(.88)" style="--d:2.5s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gP1)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gP2)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#D487A2" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#B87D96" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- white, top center -->
+            <g transform="translate(208 116) rotate(6) scale(.92)" style="--d:2.6s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gW1)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gW2)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#DCC5D6" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#C9A6BF" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- pink, top right -->
+            <g transform="translate(266 132) rotate(-6) scale(.86)" style="--d:2.7s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gP1)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gP2)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#D487A2" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#B87D96" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- white, mid left -->
+            <g transform="translate(108 184) rotate(-14) scale(.84)" style="--d:2.75s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gW1)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gW2)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#DCC5D6" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#C9A6BF" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- pink, mid center-left -->
+            <g transform="translate(170 176) rotate(-3) scale(.95)" style="--d:2.85s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gP1)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gP2)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#D487A2" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#B87D96" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- white, mid center-right -->
+            <g transform="translate(238 172) rotate(9) scale(.98)" style="--d:2.95s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gW1)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gW2)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#DCC5D6" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#C9A6BF" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- pink, mid right -->
+            <g transform="translate(302 184) rotate(12) scale(.88)" style="--d:3.05s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gP1)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gP2)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#D487A2" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#B87D96" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- pink, bottom left -->
+            <g transform="translate(138 238) rotate(-7) scale(.90)" style="--d:3.15s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gP1)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gP2)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#D487A2" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#B87D96" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- pink, bottom right -->
+            <g transform="translate(270 236) rotate(8) scale(.93)" style="--d:3.3s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gP1)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gP2)" stroke="rgba(190,110,140,.35)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gP3)" stroke="rgba(190,110,140,.4)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#D487A2" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#B87D96" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+            <!-- white, front center — the brightest -->
+            <g transform="translate(204 244) rotate(-2) scale(1.06)" style="--d:3.45s">
+              <g class="rose-in">
+                <g class="ring ring-1" fill="url(#gW1)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(4)" />
+                  <use href="#petalShape" transform="rotate(76)" />
+                  <use href="#petalShape" transform="rotate(148)" />
+                  <use href="#petalShape" transform="rotate(214)" />
+                  <use href="#petalShape" transform="rotate(286)" />
+                </g>
+                <g class="ring ring-2" fill="url(#gW2)" stroke="rgba(169,140,181,.30)" stroke-width=".7">
+                  <use href="#petalShape" transform="rotate(40) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(112) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(256) scale(.76)" />
+                  <use href="#petalShape" transform="rotate(328) scale(.76)" />
+                </g>
+                <g class="ring ring-3" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".6">
+                  <use href="#petalShape" transform="rotate(16) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(106) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(196) scale(.54)" />
+                  <use href="#petalShape" transform="rotate(286) scale(.54)" />
+                </g>
+                <g class="ring ring-4" fill="url(#gW3)" stroke="rgba(169,140,181,.35)" stroke-width=".5">
+                  <use href="#petalShape" transform="rotate(64) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(184) scale(.34)" />
+                  <use href="#petalShape" transform="rotate(304) scale(.34)" />
+                  <circle r="4.6" fill="#DCC5D6" stroke="none" />
+                </g>
+                <path class="rose-spiral" pathLength="1" fill="none" stroke="#C9A6BF" stroke-width="1.8"
+                  stroke-linecap="round"
+                  d="M1.2 -.3 A1.6 1.6 0 0 0 -2 -.3 A3.4 3.4 0 0 1 4.8 -.3 A5.6 5.6 0 0 0 -6.4 -.3" />
+              </g>
+            </g>
+
+            <!-- two small leaves tucked in front, over the stems -->
+            <g class="leaf" transform="translate(154 272) rotate(-18) scale(.7)" style="--d:2s">
+              <g class="leaf-in">
+                <use href="#leafG" />
+              </g>
+            </g>
+            <g class="leaf" transform="translate(270 274) scale(-.7 .7) rotate(-16)" style="--d:2.1s">
+              <g class="leaf-in">
+                <use href="#leafG" />
+              </g>
+            </g>
+
+            <!-- the big soft bow -->
+            <g class="bow-g">
+              <path d="M204 358 C 192 386 184 410 170 430 L 186 434 C 196 414 206 388 212 362 Z" fill="url(#gBow2)" />
+              <path d="M220 358 C 232 388 240 412 254 432 L 238 436 C 228 414 218 388 212 362 Z" fill="url(#gBow2)" />
+              <path d="M212 350 C 186 322 150 318 144 340 C 139 360 168 372 210 358 Z" fill="url(#gBow)"
+                stroke="rgba(111,88,125,.28)" stroke-width=".8" />
+              <path d="M212 350 C 238 322 274 318 280 340 C 285 360 256 372 214 358 Z" fill="url(#gBow)"
+                stroke="rgba(111,88,125,.28)" stroke-width=".8" />
+              <path d="M206 352 C 184 336 162 332 150 340" fill="none" stroke="rgba(255,253,248,.55)"
+                stroke-width="1.4" />
+              <path d="M218 352 C 240 336 262 332 274 340" fill="none" stroke="rgba(255,253,248,.55)"
+                stroke-width="1.4" />
+              <ellipse cx="212" cy="352" rx="9" ry="8" fill="#8C6F91" />
+              <path d="M206 349 C 208 346 216 346 218 349" fill="none" stroke="rgba(255,253,248,.5)"
+                stroke-width="1.2" />
+            </g>
+          </g>
+        </svg>
+
+        <div class="petals" aria-hidden="true"></div>
+      </div>
+    </section>
+
+
+    <!-- ── 3 · GREETING ✎ EDIT the text here ── -->
+    <section class="greeting">
+      <h1>Happy First Monthsary, Babi <span class="h">♡</span></h1>
+      <p class="greeting-sub">I made you some flowers.</p>
+    </section>
+
+    <div class="divider reveal" aria-hidden="true">
+      <svg viewBox="0 0 24 44" width="22">
+        <use href="#minisprig" />
+      </svg>
+    </div>
+
+
+    <!-- ── 4 · THE LETTER · a real folded paper, unfolds on touch ──
+         JS decrypts the letter, injects it into #letterMaster,
+         then measures + cuts it into folds. Edit letter.html,
+         then run: node encrypt.js <password> -->
+    <section class="letter-sec">
+      <div class="letter-wrap reveal">
+        <div class="sheet" aria-hidden="true"></div>
+
+        <figure class="letter" id="letter">
+
+          <!-- master copy: starts empty; filled by JS after decryption -->
+          <div class="letter-master paper" id="letterMaster"></div>
+
+          <!-- the 3D fold, built by JS -->
+          <div class="fold3d" id="fold3d" aria-hidden="true"></div>
+
+          <!-- closed cover: the sealed face she taps -->
+          <button class="fold-cover paper" id="foldCover" type="button" aria-expanded="false" aria-controls="srLetter">
+            <span class="cover-title">a letter, for you</span>
+            <span class="cover-seal" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="15">
+                <use href="#ico-heart" />
+              </svg>
+            </span>
+            <span class="cover-hint">tap to open ♡</span>
+          </button>
+        </figure>
+
+        <!-- screen-reader copy of the letter -->
+        <div class="sr-only" id="srLetter" tabindex="-1" aria-label="Your letter"></div>
+      </div>
+    </section>
+
+
+    <!-- ── 5 · CLOSING ✎ EDIT here if you like ── -->
+    <footer class="closing reveal">
+      <svg class="closing-heart" viewBox="0 0 24 24" aria-hidden="true">
+        <use href="#ico-heart" />
+      </svg>
+      <p class="closing-line">Happy monthsary, Babi. ♡</p>
+      <p class="closing-sub">for nesh · our first monthsary</p>
+    </footer>
+
+  </main>
+
+  <noscript>
+    <style>
+      .gate {
+        display: none
+      }
+
+      .main {
+        opacity: 1 !important;
+        visibility: visible !important
+      }
+
+      .ground,
+      .leaf-in,
+      .tulip-in,
+      .rose-in,
+      .filler,
+      .bow-g,
+      .ring,
+      .greeting,
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important
+      }
+
+      .stem,
+      .stem-b {
+        stroke-dashoffset: 0 !important
+      }
+
+      .rose-spiral {
+        stroke-dashoffset: 0 !important;
+        opacity: .8 !important
+      }
+
+      /* no JS: show the plain letter, no fold */
+      .letter-master {
+        visibility: visible !important;
+        position: relative !important
+      }
+
+      .fold-cover,
+      .fold3d {
+        display: none !important
+      }
+    </style>
+  </noscript>
+
+  <script src="js/crypto-fallback.js?v=2"></script>
+  <script src="js/encrypted.js?v=2"></script>
+  <script src="js/script.js?v=2"></script>
+</body>
+
+</html>
