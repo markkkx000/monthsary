@@ -16,7 +16,7 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=5">
 </head>
 
 <body>
@@ -809,6 +809,88 @@
 
   </main>
 
+  <!-- ══════════════════════════════════════════════════
+       6 · FLOATING MUSIC PLAYER
+  ══════════════════════════════════════════════════ -->
+  <aside class="music-player" id="musicPlayer" aria-label="Music player">
+    <audio id="audioEl" preload="metadata"></audio>
+
+    <!-- Playlist Drawer / Popup -->
+    <div class="mp-playlist" id="mpPlaylist" aria-hidden="true">
+      <div class="mp-playlist-header">
+        <span class="mp-playlist-title">All These and More ♡</span>
+        <button type="button" class="mp-close-btn" id="mpClosePlaylist" aria-label="Close playlist">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <ul class="mp-tracklist" id="mpTracklist" role="list"></ul>
+    </div>
+
+    <!-- Main Player Bar -->
+    <div class="mp-bar" id="mpBar">
+      <!-- Progress Bar (interactive scrubber along the top edge) -->
+      <div class="mp-timeline-wrap" id="mpTimeline" role="progressbar" aria-label="Audio progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+        <div class="mp-timeline-fill" id="mpTimelineFill">
+          <span class="mp-timeline-thumb"></span>
+        </div>
+      </div>
+
+      <div class="mp-inner">
+        <!-- Spinning Record / Disc -->
+        <div class="mp-disc-wrap">
+          <div class="mp-disc" id="mpDisc" aria-hidden="true">
+            <svg class="mp-disc-heart" viewBox="0 0 24 24">
+              <use href="#ico-heart" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Song Metadata -->
+        <div class="mp-info">
+          <div class="mp-title-wrap">
+            <span class="mp-title" id="mpTitle">Select a track</span>
+          </div>
+          <div class="mp-sub">
+            <span class="mp-artist" id="mpArtist">The Ridleys</span>
+            <span class="mp-sep">·</span>
+            <span class="mp-time-text"><span id="mpCurrentTime">0:00</span> / <span id="mpDuration">0:00</span></span>
+          </div>
+        </div>
+
+        <!-- Action Controls -->
+        <div class="mp-controls">
+          <button type="button" class="mp-btn mp-btn-prev" id="mpPrevBtn" aria-label="Previous song" title="Previous song">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+              <path d="M6 6h2.5v12H6zm3.5 6l9 6V6z"/>
+            </svg>
+          </button>
+
+          <button type="button" class="mp-btn mp-btn-play" id="mpPlayBtn" aria-label="Play song" title="Play">
+            <svg class="mp-icon-play" viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <svg class="mp-icon-pause" viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+          </button>
+
+          <button type="button" class="mp-btn mp-btn-next" id="mpNextBtn" aria-label="Next song" title="Next song">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+              <path d="M6 18l9-6-9-6v12zM15.5 6H18v12h-2.5z"/>
+            </svg>
+          </button>
+
+          <button type="button" class="mp-btn mp-btn-list" id="mpListBtn" aria-label="Toggle playlist" title="All These and More">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            </svg>
+            <span class="mp-count" id="mpCount">10</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
   <noscript>
     <style>
       .gate {
@@ -858,7 +940,7 @@
 
   <script src="js/crypto-fallback.js?v=4"></script>
   <script src="js/encrypted.js?v=4"></script>
-  <script src="js/script.js?v=4"></script>
+  <script src="js/script.js?v=5"></script>
 </body>
 
 </html>

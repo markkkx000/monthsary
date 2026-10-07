@@ -18,6 +18,24 @@ const CONFIG = {
 
 const PETAL_COLORS = ['#E8B7C8', '#D99AAF', '#CDB5D8', '#EFD3DD'];
 
+/* ════════════════════════════════════════════════════════════
+   OUR PLAYLIST ♡
+   Place your downloaded MP3 files in the /music directory.
+   Update the title, artist, and filename for each song below.
+════════════════════════════════════════════════════════════ */
+const PLAYLIST = [
+  { title: "Be With You", artist: "The Ridleys", src: "music/Be With You.mp3" },
+  { title: "Euphoria", artist: "The Ridleys", src: "music/Euphoria.mp3" },
+  { title: "Running Out of Songs", artist: "The Ridleys", src: "music/Running Out of Songs.mp3" },
+  { title: "Strangest Love", artist: "The Ridleys", src: "music/Strangest Love.mp3" },
+  { title: "Promised Land", artist: "The Ridleys", src: "music/Promised Land.mp3" },
+  { title: "Vines", artist: "The Ridleys", src: "music/Vines.mp3" },
+  { title: "Garden", artist: "The Ridleys", src: "music/Garden.mp3" },
+  { title: "KYGM", artist: "The Ridleys", src: "music/KYGM.mp3" },
+  { title: "Love Is", artist: "The Ridleys", src: "music/Love Is.mp3" },
+  { title: "Someday", artist: "The Ridleys", src: "music/Someday.mp3" },
+];
+
 (() => {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -148,6 +166,9 @@ const PETAL_COLORS = ['#E8B7C8', '#D99AAF', '#CDB5D8', '#EFD3DD'];
     gate.classList.add('gate--leave');
     body.classList.add('open');
     main.setAttribute('aria-hidden', 'false');
+
+    // start background music playback on gate unlock with gentle fade-in
+    startMusicOnUnlock();
 
     const start = reduced ? 50 : CONFIG.bloomStartDelay;
     const total = reduced ? 300 : start + CONFIG.bloomTotalMs;
@@ -332,4 +353,254 @@ const PETAL_COLORS = ['#E8B7C8', '#D99AAF', '#CDB5D8', '#EFD3DD'];
     }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
     revealEls.forEach(el => io.observe(el));
   }
+
+  /* ════════════════════════════════════════════════════
+     6 · MUSIC PLAYER CONTROLLER
+  ════════════════════════════════════════════════════ */
+  const audio = document.getElementById('audioEl');
+  const mpRoot = document.getElementById('musicPlayer');
+  const mpTitle = document.getElementById('mpTitle');
+  const mpArtist = document.getElementById('mpArtist');
+  const mpCurrentTime = document.getElementById('mpCurrentTime');
+  const mpDuration = document.getElementById('mpDuration');
+  const mpTimeline = document.getElementById('mpTimeline');
+  const mpTimelineFill = document.getElementById('mpTimelineFill');
+  const mpPlayBtn = document.getElementById('mpPlayBtn');
+  const mpPrevBtn = document.getElementById('mpPrevBtn');
+  const mpNextBtn = document.getElementById('mpNextBtn');
+  const mpListBtn = document.getElementById('mpListBtn');
+  const mpPlaylist = document.getElementById('mpPlaylist');
+  const mpTracklist = document.getElementById('mpTracklist');
+  const mpClosePlaylist = document.getElementById('mpClosePlaylist');
+  const mpCount = document.getElementById('mpCount');
+
+  let currentTrackIdx = 0;
+  let isPlaying = false;
+  let isDraggingScrubber = false;
+  let fadeInterval = null;
+
+  function formatTime(seconds) {
+    if (isNaN(seconds) || !isFinite(seconds) || seconds < 0) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  }
+
+  function renderTracklist() {
+    if (!mpTracklist) return;
+    mpTracklist.innerHTML = '';
+    if (mpCount) mpCount.textContent = PLAYLIST.length;
+
+    PLAYLIST.forEach((track, idx) => {
+      const li = document.createElement('li');
+      li.className = 'mp-track-item' + (idx === currentTrackIdx ? ' is-active' : '');
+      li.tabIndex = 0;
+      li.setAttribute('role', 'button');
+      li.setAttribute('aria-label', `Play ${track.title} by ${track.artist}`);
+
+      li.innerHTML = `
+        <span class="mp-track-num">${(idx + 1).toString().padStart(2, '0')}</span>
+        <div class="mp-track-details">
+          <span class="mp-track-name">${track.title}</span>
+          <span class="mp-track-artist">${track.artist}</span>
+        </div>
+        <span class="mp-playing-indicator" aria-hidden="true"></span>
+      `;
+
+      li.addEventListener('click', () => {
+        playTrackAt(idx);
+      });
+
+      li.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          playTrackAt(idx);
+        }
+      });
+
+      mpTracklist.appendChild(li);
+    });
+  }
+
+  function updateActiveTrackUI() {
+    const track = PLAYLIST[currentTrackIdx];
+    if (!track) return;
+
+    if (mpTitle) mpTitle.textContent = track.title;
+    if (mpArtist) mpArtist.textContent = track.artist;
+    if (mpTimelineFill) mpTimelineFill.style.width = '0%';
+    if (mpCurrentTime) mpCurrentTime.textContent = '0:00';
+    if (mpDuration) mpDuration.textContent = '0:00';
+
+    if (mpTracklist) {
+      const items = mpTracklist.querySelectorAll('.mp-track-item');
+      items.forEach((item, idx) => {
+        item.classList.toggle('is-active', idx === currentTrackIdx);
+      });
+    }
+  }
+
+  function loadTrack(index) {
+    if (!audio || !PLAYLIST.length) return;
+    currentTrackIdx = (index + PLAYLIST.length) % PLAYLIST.length;
+    const track = PLAYLIST[currentTrackIdx];
+    audio.src = encodeURI(track.src);
+    audio.load();
+    updateActiveTrackUI();
+  }
+
+  function playAudio() {
+    if (!audio) return;
+    const promise = audio.play();
+    if (promise !== undefined) {
+      promise.then(() => {
+        isPlaying = true;
+        if (mpRoot) mpRoot.classList.add('is-playing');
+        if (mpPlayBtn) mpPlayBtn.setAttribute('aria-label', 'Pause song');
+      }).catch(err => {
+        // Audio file not present yet or blocked by browser policy
+        isPlaying = false;
+        if (mpRoot) mpRoot.classList.remove('is-playing');
+        console.info('Audio note: Place downloaded MP3 files in the /music directory to enable playback.', err);
+      });
+    }
+  }
+
+  function pauseAudio() {
+    if (!audio) return;
+    audio.pause();
+    isPlaying = false;
+    if (mpRoot) mpRoot.classList.remove('is-playing');
+    if (mpPlayBtn) mpPlayBtn.setAttribute('aria-label', 'Play song');
+  }
+
+  function toggleAudio() {
+    if (isPlaying) {
+      pauseAudio();
+    } else {
+      playAudio();
+    }
+  }
+
+  function playTrackAt(index) {
+    loadTrack(index);
+    playAudio();
+  }
+
+  function nextTrack() {
+    playTrackAt(currentTrackIdx + 1);
+  }
+
+  function prevTrack() {
+    if (audio && audio.currentTime > 3) {
+      audio.currentTime = 0;
+      return;
+    }
+    playTrackAt(currentTrackIdx - 1);
+  }
+
+  function startMusicOnUnlock() {
+    if (!audio || !PLAYLIST.length) return;
+    loadTrack(0);
+
+    // Smooth volume fade-in as bouquet blooms
+    audio.volume = 0;
+    playAudio();
+
+    let vol = 0;
+    const targetVol = 0.75;
+    const step = 0.05;
+    if (fadeInterval) clearInterval(fadeInterval);
+    fadeInterval = setInterval(() => {
+      vol = Math.min(targetVol, vol + step);
+      if (audio) audio.volume = vol;
+      if (vol >= targetVol) {
+        clearInterval(fadeInterval);
+        fadeInterval = null;
+      }
+    }, 150);
+  }
+
+  // Audio element events
+  if (audio) {
+    audio.addEventListener('timeupdate', () => {
+      if (isDraggingScrubber || !audio.duration) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      if (mpTimelineFill) mpTimelineFill.style.width = `${pct}%`;
+      if (mpCurrentTime) mpCurrentTime.textContent = formatTime(audio.currentTime);
+      if (mpTimeline) mpTimeline.setAttribute('aria-valuenow', Math.round(pct));
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      if (mpDuration) mpDuration.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener('ended', () => {
+      // Loop forward to next song automatically
+      nextTrack();
+    });
+
+    audio.addEventListener('play', () => {
+      isPlaying = true;
+      if (mpRoot) mpRoot.classList.add('is-playing');
+    });
+
+    audio.addEventListener('pause', () => {
+      isPlaying = false;
+      if (mpRoot) mpRoot.classList.remove('is-playing');
+    });
+  }
+
+  // Button listeners
+  if (mpPlayBtn) mpPlayBtn.addEventListener('click', toggleAudio);
+  if (mpNextBtn) mpNextBtn.addEventListener('click', nextTrack);
+  if (mpPrevBtn) mpPrevBtn.addEventListener('click', prevTrack);
+
+  // Timeline scrub / seek
+  function handleSeek(e) {
+    if (!audio || !audio.duration || !mpTimeline) return;
+    const rect = mpTimeline.getBoundingClientRect();
+    const clickX = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    const pct = clickX / rect.width;
+    audio.currentTime = pct * audio.duration;
+    if (mpTimelineFill) mpTimelineFill.style.width = `${pct * 100}%`;
+  }
+
+  if (mpTimeline) {
+    mpTimeline.addEventListener('click', handleSeek);
+  }
+
+  // Playlist drawer toggle
+  function togglePlaylist(show) {
+    if (!mpPlaylist) return;
+    const shouldShow = typeof show === 'boolean' ? show : !mpPlaylist.classList.contains('is-open');
+    mpPlaylist.classList.toggle('is-open', shouldShow);
+    mpPlaylist.setAttribute('aria-hidden', !shouldShow);
+  }
+
+  if (mpListBtn) {
+    mpListBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      togglePlaylist();
+    });
+  }
+
+  if (mpClosePlaylist) {
+    mpClosePlaylist.addEventListener('click', (e) => {
+      e.stopPropagation();
+      togglePlaylist(false);
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (mpPlaylist && mpPlaylist.classList.contains('is-open')) {
+      if (!mpPlaylist.contains(e.target) && !mpListBtn.contains(e.target)) {
+        togglePlaylist(false);
+      }
+    }
+  });
+
+  // Initial setup
+  renderTracklist();
+  updateActiveTrackUI();
 })();
