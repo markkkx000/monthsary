@@ -146,8 +146,8 @@ const PLAYLIST = [
   function wrongAnswer() {
     tries++;
     msg.textContent = tries >= 3
-      ? 'hint: it\u2019s a berry, babi \u2661'
-      : 'Try again, babi. \u2661';
+      ? 'hint: ayaw mo ng flavor na \u2019to'
+      : 'Maliii hehe';
     msg.classList.add('show');
     form.classList.remove('shake');
     void form.offsetWidth;
